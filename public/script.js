@@ -33,7 +33,7 @@ socket.on('send message', msgFromServer => {
     item.innerHTML = `<b>${msgFromServer.name}:</b> ${msgFromServer.msg}`;
     item.style.color = msgFromServer.color;
     messages.append(item);
-    
+
     // Scroll to the bottom
     messages.scrollTop = messages.scrollHeight;
 });
@@ -51,5 +51,12 @@ saveBtn.addEventListener('click', () => {
     
     socket.emit('update_user_details', data);
     
-    alert("הפרטים נשמרו בהצלחה!");
+    alert("User details saved successfully!");
+});
+
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+    socket.disconnect();
+    alert("you have been logged out successfully!");
+    location.reload(); 
 });

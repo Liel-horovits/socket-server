@@ -20,6 +20,18 @@ export const createSocket = (httpServer) => {
         // הקליינט יקבל את המידע רק אם הוא רשום לאירוע
         socket.emit('user connected', { userId: socket.userId });
 
+       socket.on('disconnect', () => {
+       const leavingUser = socket.username || `User ${socket.userId}`;
+    
+       console.log(`User leaving: ${leavingUser}`); 
+       io.emit('send message', { 
+          name: "System", 
+          color: "#808080", 
+          msg: `${leavingUser} has left the chat.` 
+      });
+  });
+
+
         socket.on('update_user_details', (data) => {
             socket.username = data.username;
             socket.userColor = data.color;
