@@ -20,6 +20,12 @@ export const createSocket = (httpServer) => {
         // הקליינט יקבל את המידע רק אם הוא רשום לאירוע
         socket.emit('user connected', { userId: socket.userId });
 
+        socket.on('update_user_details', (data) => {
+            socket.username = data.username;
+            socket.userColor = data.color;
+            console.log(` user updated: ${socket.username}, color: ${socket.userColor}`);
+        });
+
         socket.on('new message', (newMessage) => {
             // שיגור אירוע לכל הלקוחות שמחוברים כרגע
             // io.emit('send message', `new message added by ${socket.userId}: ${newMessage}`)

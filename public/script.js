@@ -35,3 +35,19 @@ socket.on('send message', msgFromServer => {
     // Scroll to the bottom
     messages.scrollTop = messages.scrollHeight;
 });
+
+
+const saveBtn = document.getElementById('save-btn');
+const usernameInput = document.getElementById('username');
+const colorInput = document.getElementById('user-color');
+
+saveBtn.addEventListener('click', () => {
+    const data = {
+        username: usernameInput.value,
+        color: colorInput.value
+    };
+    
+    socket.emit('update_user_details', data);
+    
+    alert("הפרטים נשמרו בהצלחה!");
+});
