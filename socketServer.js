@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 
 let id = 1;
+let connectedCount = 0;
 
 export const createSocket = (httpServer) => {
     const io = new Server(httpServer, {
@@ -12,6 +13,10 @@ export const createSocket = (httpServer) => {
     // socket - נתוני הלקוח שהתחבר כרגע
     io.on('connection', (socket) => {
         // ניתן להוסיף נתונים על היוזר הנוכחי בצורה כזו לסוקט
+
+        connectedCount++;
+        io.emit('update counter', connectedCount);
+
         socket.userId = id++;
         console.log(`user ${socket.userId} connected successfully`);
 
@@ -22,7 +27,8 @@ export const createSocket = (httpServer) => {
 
        socket.on('disconnect', () => {
        const leavingUser = socket.username || `User ${socket.userId}`;
-    
+       connectedCount--;
+       io.emit('update counter', connectedCount);
        console.log(`User leaving: ${leavingUser}`); 
        io.emit('send message', { 
           name: "System", 

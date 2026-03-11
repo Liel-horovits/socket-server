@@ -24,9 +24,13 @@ form.addEventListener('submit', e => {
 });
 
 // Listen for incoming messages
-socket.on('user connected', ({ userId }) => {
-    h1.textContent += ` - user ${userId}`
-})
+//socket.on('user connected', ({ userId }) => {
+//    h1.textContent += ` - user ${userId}`
+//})
+
+socket.on('update counter', (count) => {
+    h1.textContent = `Simple Chat - ${count} users online`;
+});
 
 socket.on('send message', msgFromServer => {
     const item = document.createElement('li');
