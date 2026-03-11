@@ -27,11 +27,13 @@ form.addEventListener('submit', e => {
 socket.on('user connected', ({ userId }) => {
     h1.textContent += ` - user ${userId}`
 })
+
 socket.on('send message', msgFromServer => {
     const item = document.createElement('li');
-    item.textContent = `new message added by ${msgFromServer.by}: ${msgFromServer.msg}`;
+    item.innerHTML = `<b>${msgFromServer.name}:</b> ${msgFromServer.msg}`;
+    item.style.color = msgFromServer.color;
     messages.append(item);
-
+    
     // Scroll to the bottom
     messages.scrollTop = messages.scrollHeight;
 });

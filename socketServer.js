@@ -29,7 +29,11 @@ export const createSocket = (httpServer) => {
         socket.on('new message', (newMessage) => {
             // שיגור אירוע לכל הלקוחות שמחוברים כרגע
             // io.emit('send message', `new message added by ${socket.userId}: ${newMessage}`)
-            io.emit('send message', { by: socket.userId, msg: newMessage })
-        });
+            io.emit('send message', { 
+            name: socket.username || 'unknown', 
+            color: socket.userColor || '#000000', 
+            msg: newMessage 
+       });
+     });
     });
 };
